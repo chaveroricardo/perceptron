@@ -1,9 +1,56 @@
 # Binary Classifier for In-Vivo Microscopic Images for Esophageal Cancer Diagnosis
 
-A linear Perceptron is used to perform binary classification on a subset of images from the [Data Challenge by Mauna Kea](https://challengedata.ens.fr/participants/challenges/11/).
+This repository contains a binary classifier that distinguishes between healthy and dysplastic/cancerous esophageal tissue using in-vivo microscopic images from the [Data Challenge by Mauna Kea](https://challenge.maunakeatech.com). A linear Perceptron model is used for the classification.
 
-For this classifier, only images of healthy tissue and images of tissue with dysplasia/cancer were used. Thus, the dataset consists of 1,469 images of healthy tissue (class 0) and 3,594 images of dysplasia/cancer tissue (class 1).
+## Dataset Overview
 
-The original images were scaled from 519x521 pixels to 260x260 to reduce the time and memory required for processing. The set of images used is available in the compressed file [ImageFolder.zip](https://drive.google.com/file/d/1Abi4hjl5djn8X75YCcMXL5htq7iqf7VY/view?usp=sharing), outside this repository.
+This classifier uses a subset of the dataset containing only images of healthy tissue and images of tissue with dysplasia/cancer:
+- **Class 0**: Healthy tissue (1,469 images)
+- **Class 1**: Dysplastic or cancerous tissue (3,594 images)
 
-Additionally, the file *ClasesImagenes.csv*, located in the *Data* folder of this repository, contains a table identifying the name of each image and the class to which it belongs.
+The original images, which were 519x521 pixels, were scaled down to 260x260 pixels to optimize memory usage and reduce processing time.
+
+### Data Files
+- **ImageFolder.zip**: Contains the image dataset used for this classification task (stored outside this repository).
+- **Data/ClasesImagenes.csv**: A CSV file listing each image's filename and its respective class label.
+
+## Preprocessing
+
+- **Resizing**: Images were resized to 260x260 pixels.
+- **Flattening**: Each resized image was flattened into a 1D vector to be used as input for the Perceptron.
+
+## Model Description
+
+- **Algorithm**: A linear Perceptron was implemented using Scikit-learn.
+- **Objective**: Perform binary classification of healthy vs. dysplastic/cancerous tissue images.
+  
+### Model Hyperparameters
+- The Perceptron model was optimized for parameters such as:
+  - `penalty`: L2 regularization
+  - `alpha`: Regularization strength
+  - `max_iter`: Maximum number of training iterations
+  - `random_state`: Ensures reproducibility
+  
+## Evaluation Metrics
+
+The model was evaluated using the following metrics:
+- **Accuracy**: Measures the overall percentage of correct predictions.
+- **Recall (Sensitivity)**: Assesses the model’s ability to correctly identify dysplastic/cancerous tissue.
+- **Precision**: Determines the accuracy of predictions for cancerous cases.
+- **F1-Score**: A balanced metric that combines recall and precision, particularly useful for imbalanced classes.
+
+Cross-validation (5-fold) was performed to ensure the robustness of these metrics, and hyperparameter tuning was achieved through `GridSearchCV` to find the optimal values.
+
+## Results
+
+- **Training Accuracy**: X%
+- **Test Accuracy**: Y%
+- **F1-Score**: Z%
+  
+(Include specific metrics here after testing and validation)
+
+## Usage
+
+1. **Dependencies**: Install the required libraries.
+   ```bash
+   pip install -r requirements.txt
